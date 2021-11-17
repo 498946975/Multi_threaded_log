@@ -13,7 +13,7 @@ def test_func():
 # 发送debug级别日志消息
 def test():
     time.sleep(3)  # 每个线程睡3秒
-    setup_logging("./log.yaml")
+    setup_logging("./logging.yaml")
     test_func()
 
 

@@ -3,59 +3,59 @@ version: 1
 disable_existing_loggers: False
 
 formatters:
-    simple:
-        format: "%(asctime)s [%(name)s] [%(levelname)s] :%(levelno)s: %(message)s"
-        datefmt: '%F %T'
+  simple:
+    format: "%(asctime)s [%(name)s] [%(levelname)s] :%(levelno)s: %(message)s"
+    datefmt: '%F %T'
 
 handlers:
-    console:
-        class: logging.StreamHandler
-        level: DEBUG
-        formatter: simple
-        stream: ext://sys.stdout
+  console:
+    class: logging.StreamHandler
+    level: DEBUG
+    formatter: simple
+    stream: ext://sys.stdout
     #process_safe_handler:
-        #class: MultiProcessSafeHandler
-        #level: DEBUG
-        #formatter: simple
-        #args: (u'worker.log', 'M', 5) # 一分钟一个文件，只保留最新的5个
-        #args: (r'worker.log', 'D', 5) # 一天一个文件，只保留最新的5个
+    #class: MultiProcessSafeHandler
+    #level: DEBUG
+    #formatter: simple
+    #args: (u'worker.log', 'M', 5) # 一分钟一个文件，只保留最新的5个
+    #args: (r'worker.log', 'D', 5) # 一天一个文件，只保留最新的5个
 
-    info_file_handler:
-        class: logging.handlers.RotatingFileHandler
-        level: INFO
-        formatter: simple
-        filename: logs/info.log
-        maxBytes: 10485760 # 10MB
-        backupCount: 20 #most 20 extensions
-        encoding: utf8
-    error_file_handler:
-        class: logging.handlers.RotatingFileHandler
-        level: ERROR
-        formatter: simple
-        filename: logs/errors.log
-        maxBytes: 10485760 # 10MB
-        backupCount: 20
-        encoding: utf8
-    #concureent_file_handler:
-        #class: ConcurrentRotatingFileHandler
-        #level: INFO
-        #formatter: simple
-        #args: ("rotating.log", "a", 512*1024, 5)
-        #kwargs:
-            #filename: "./logs/public.log"
-            #filename: "public.log"
-            #maxBytes: 10 #1024 * 1024 * 10
-            #backupCount": 10
-            #delay: True
-            #debug: True
+  info_file_handler:
+    class: logging.handlers.RotatingFileHandler
+    level: INFO
+    formatter: simple
+    filename: logs/info.log
+    maxBytes: 10485760 # 10MB
+    backupCount: 20 #most 20 extensions
+    encoding: utf8
+  error_file_handler:
+    class: logging.handlers.RotatingFileHandler
+    level: ERROR
+    formatter: simple
+    filename: logs/errors.log
+    maxBytes: 10485760 # 10MB
+    backupCount: 20
+    encoding: utf8
+      #concureent_file_handler:
+      #class: ConcurrentRotatingFileHandler
+      #level: INFO
+      #formatter: simple
+      #args: ("rotating.log", "a", 512*1024, 5)
+      #kwargs:
+      #filename: "./logs/public.log"
+      #filename: "public.log"
+      #maxBytes: 10 #1024 * 1024 * 10
+      #backupCount": 10
+      #delay: True
+    #debug: True
 
 loggers:
-    server:
-        level: DEBUG #允许打印DEBUG及以上log
-        handlers: [info_file_handler]
-        propagate: true #设为false则禁止将日志消息传递给父级记录器的处理程序中
+  server:
+    level: DEBUG #允许打印DEBUG及以上log
+    handlers: [ info_file_handler ]
+    propagate: true #设为false则禁止将日志消息传递给父级记录器的处理程序中
 
 root:
-    level: INFO
-    handlers: [console]
+  level: INFO
+  handlers: [ console ]
 

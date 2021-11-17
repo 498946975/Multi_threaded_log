@@ -21,7 +21,7 @@ handlers:
     #args: (r'worker.log', 'D', 5) # 一天一个文件，只保留最新的5个
 
   info_file_handler:
-    class: logging.handlers.RotatingFileHandler
+    class: cloghandler.ConcurrentRotatingFileHandler
     level: INFO
     formatter: simple
     filename: logs/info.log
@@ -29,7 +29,7 @@ handlers:
     backupCount: 20 #most 20 extensions
     encoding: utf8
   error_file_handler:
-    class: logging.handlers.RotatingFileHandler
+    class: cloghandler.ConcurrentRotatingFileHandler
     level: ERROR
     formatter: simple
     filename: logs/errors.log
@@ -57,5 +57,5 @@ loggers:
 
 root:
   level: INFO
-  handlers: [ console ]
+  handlers: [ info_file_handler,error_file_handler ]
 

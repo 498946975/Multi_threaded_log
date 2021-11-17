@@ -18,7 +18,6 @@ def test():
 
 
 if __name__ == '__main__':
-
     pool = multiprocessing.Pool(processes=2)  # 一次起2个线程
     for i in range(10):  # 循环10次
         pool.apply_async(func=test)

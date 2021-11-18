@@ -4,8 +4,9 @@ disable_existing_loggers: False
 
 formatters:
   simple:
-    format: "%(asctime)s [%(name)s] [%(levelname)s] :%(levelno)s: %(message)s"
-    datefmt: '%F %T'
+    format: '%(asctime)s %(levelname)s %(message)s'
+  upgrade:
+    format: "%(asctime)s -Loc %(filename)s -Pid %(process)d -%(name)s -%(levelname)s - %(message)s"
 
 handlers:
   console:
@@ -13,41 +14,35 @@ handlers:
     level: DEBUG
     formatter: simple
     stream: ext://sys.stdout
-    #process_safe_handler:
-    #class: MultiProcessSafeHandler
-    #level: DEBUG
-    #formatter: simple
-    #args: (u'worker.log', 'M', 5) # 一分钟一个文件，只保留最新的5个
-    #args: (r'worker.log', 'D', 5) # 一天一个文件，只保留最新的5个
 
+# 按照文件大小分割
   info_file_handler:
     class: cloghandler.ConcurrentRotatingFileHandler
     level: INFO
     formatter: simple
-    filename: logs/info.log
+    filename: logs/info_rotating.log
     maxBytes: 10485760 # 10MB
     backupCount: 20 #most 20 extensions
     encoding: utf8
+# 按照文件大小分割
   error_file_handler:
     class: cloghandler.ConcurrentRotatingFileHandler
     level: ERROR
-    formatter: simple
-    filename: logs/errors.log
+    formatter: upgrade
+    filename: logs/errors_rotating.log
     maxBytes: 10485760 # 10MB
     backupCount: 20
     encoding: utf8
-      #concureent_file_handler:
-      #class: ConcurrentRotatingFileHandler
-      #level: INFO
-      #formatter: simple
-      #args: ("rotating.log", "a", 512*1024, 5)
-      #kwargs:
-      #filename: "./logs/public.log"
-      #filename: "public.log"
-      #maxBytes: 10 #1024 * 1024 * 10
-      #backupCount": 10
-      #delay: True
-    #debug: True
+# 按照时间分割
+#  info_file_handler:
+#    class: logging.handlers.TimedRotatingFileHandler
+#    level: DEBUG
+#    formatter: simple
+#    filename: logs/info_time.log  #这个路径根据自己的日志存放路径填写
+#    interval: 1
+#    backupCount: 2 #most 2 extensions
+#    encoding: utf8
+#    when: H #这里是按小时生成
 
 loggers:
   server:

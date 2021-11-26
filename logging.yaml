@@ -21,7 +21,7 @@ handlers:
     level: INFO
     formatter: simple
     filename: logs/info_rotating.log
-    maxBytes: 1024 # 10MB
+    maxBytes: 1048576 # 10
     backupCount: 20 #most 20 extensions
     encoding: utf8
 # 按照文件大小分割
@@ -30,7 +30,7 @@ handlers:
     level: ERROR
     formatter: upgrade
     filename: logs/errors_rotating.log
-    maxBytes: 1024 # 10MB
+    maxBytes: 1048576 # 10M
     backupCount: 20
     encoding: utf8
 # 按照时间分割
